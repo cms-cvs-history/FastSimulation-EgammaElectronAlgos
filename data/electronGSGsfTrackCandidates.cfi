@@ -1,0 +1,10 @@
+#
+# This cfi should be included to run the GSGsfTrackCandidateMaker 
+#
+
+module electronGSGsfTrackCandidates = GSGsfTrackCandidateMaker
+{
+    string SeedProducer          = "electronGSPixelSeeds"
+    string SeedLabel             = ""
+    
+}

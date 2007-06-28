@@ -1,0 +1,8 @@
+# GsfTrackCandidateMaker
+include "FastSimulation/EgammaElectronAlgos/data/electronGSGsfTrackCandidates.cfi"
+
+module electronGSGsfTrackCandidatesBarrel = electronGSGsfTrackCandidates from "FastSimulation/EgammaElectronAlgos/data/electronGSGsfTrackCandidates.cfi"
+replace electronGSGsfTrackCandidatesBarrel.SeedLabel ="correctedHybridSuperClusters"
+
+module electronGSGsfTrackCandidatesEndcap = electronGSGsfTrackCandidates from "FastSimulation/EgammaElectronAlgos/data/electronGSGsfTrackCandidates.cfi"
+replace electronGSGsfTrackCandidatesEndcap.SeedLabel ="correctedEndcapSuperClustersWithPreshower"
