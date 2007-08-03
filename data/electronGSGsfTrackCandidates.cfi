@@ -13,6 +13,6 @@ module electronGSGsfTrackCandidates = GSGsfTrackCandidateMaker
 
     # Track Candidate cuts
     double ptCut = 3.
-    int32  minimumNumberOfHits  = 3
+    int32  minimumNumberOfHits  = 5
 
 }
