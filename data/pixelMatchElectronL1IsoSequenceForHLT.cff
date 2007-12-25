@@ -1,0 +1,45 @@
+# $Id: pixelMatchElectronL1IsoSequenceForHLT.cff,v 1.2 2007/12/20 12:44:27 pjanot Exp $
+# create a sequence with all required modules and sources needed to make
+# pixel based electrons
+#
+# NB: it assumes that ECAL clusters (hybrid) are in the event
+#
+#
+
+# modules to make seeds, tracks and electrons
+include "RecoEgamma/EgammaHLTProducers/data/egammaHLTChi2MeasurementEstimatorESProducer.cff"
+
+# Cluster-seeded pixel pairs
+module l1IsoElectronPixelSeeds = electronGSPixelSeeds from "FastSimulation/EgammaElectronAlgos/data/electronGSPixelSeeds.cfi"
+replace l1IsoElectronPixelSeeds.SeedConfiguration.ePhiMin1=-0.025
+replace l1IsoElectronPixelSeeds.SeedConfiguration.ePhiMax1=0.015
+replace l1IsoElectronPixelSeeds.SeedConfiguration.pPhiMin1=-0.015
+replace l1IsoElectronPixelSeeds.SeedConfiguration.pPhiMax1=0.025
+replace l1IsoElectronPixelSeeds.SeedConfiguration.pPhiMin2=-0.001
+replace l1IsoElectronPixelSeeds.SeedConfiguration.pPhiMax2=0.001
+replace l1IsoElectronPixelSeeds.SeedConfiguration.ZMin1=-15.0
+replace l1IsoElectronPixelSeeds.SeedConfiguration.ZMax1=15.0
+replace l1IsoElectronPixelSeeds.SeedConfiguration.ZMin2=-0.05
+replace l1IsoElectronPixelSeeds.SeedConfiguration.ZMax2=0.05
+
+replace l1IsoElectronPixelSeeds.superClusterBarrelProducer = "correctedHybridSuperClustersL1Isolated"
+replace l1IsoElectronPixelSeeds.superClusterEndcapProducer = "correctedEndcapSuperClustersWithPreshowerL1Isolated"
+
+# CKFTrackCandidateMaker
+module ckfL1IsoTrackCandidates = trackCandidateProducer from "FastSimulation/Tracking/data/TrackCandidateProducer.cfi"
+replace ckfL1IsoTrackCandidates.SeedProducer = l1IsoElectronPixelSeeds:
+replace ckfL1IsoTrackCandidates.TrackProducer = None:None
+replace ckfL1IsoTrackCandidates.MaxNumberOfCrossedLayers = 999
+replace ckfL1IsoTrackCandidates.SeedCleaning = false
+
+# CTF track fit with material
+module ctfL1IsoWithMaterialTracks = ctfWithMaterialTracks from "RecoTracker/TrackProducer/data/CTFFinalFitWithMaterial.cfi"
+replace ctfL1IsoWithMaterialTracks.src = "ckfL1IsoTrackCandidates"
+replace ctfL1IsoWithMaterialTracks.TTRHBuilder = "WithoutRefit"
+
+# Electron collection
+include "RecoEgamma/EgammaHLTProducers/data/pixelMatchElectronsL1IsoForHLT.cff"
+
+sequence pixelMatchElectronL1IsoSequenceForHLT = {
+    l1IsoElectronPixelSeeds
+}
