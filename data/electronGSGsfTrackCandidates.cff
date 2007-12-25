@@ -1,3 +1,7 @@
 # GsfTrackCandidateMaker
-include "FastSimulation/EgammaElectronAlgos/data/electronGSGsfTrackCandidates.cfi"
+module electronGSGsfTrackCandidates = trackCandidateProducer from "FastSimulation/Tracking/data/TrackCandidateProducer.cfi"
+replace electronGSGsfTrackCandidates.SeedProducer = electronGSPixelSeeds:
+replace electronGSGsfTrackCandidates.TrackProducer = None:None
+replace electronGSGsfTrackCandidates.SeedCleaning = true
+replace electronGSGsfTrackCandidates.MinNumberOfCrossedLayers = 5
 
