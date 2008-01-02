@@ -1,4 +1,4 @@
-# $Id: pixelMatchElectronL1IsoSequenceForHLT.cff,v 1.2 2007/12/20 12:44:27 pjanot Exp $
+# $Id: pixelMatchElectronL1IsoSequenceForHLT.cff,v 1.1 2007/12/25 17:14:02 pjanot Exp $
 # create a sequence with all required modules and sources needed to make
 # pixel based electrons
 #
@@ -36,6 +36,8 @@ replace ckfL1IsoTrackCandidates.SeedCleaning = false
 module ctfL1IsoWithMaterialTracks = ctfWithMaterialTracks from "RecoTracker/TrackProducer/data/CTFFinalFitWithMaterial.cfi"
 replace ctfL1IsoWithMaterialTracks.src = "ckfL1IsoTrackCandidates"
 replace ctfL1IsoWithMaterialTracks.TTRHBuilder = "WithoutRefit"
+replace ctfL1IsoWithMaterialTracks.Fitter = "KFFittingSmoother"
+replace ctfL1IsoWithMaterialTracks.Propagator = "PropagatorWithMaterial"
 
 # Electron collection
 include "RecoEgamma/EgammaHLTProducers/data/pixelMatchElectronsL1IsoForHLT.cff"

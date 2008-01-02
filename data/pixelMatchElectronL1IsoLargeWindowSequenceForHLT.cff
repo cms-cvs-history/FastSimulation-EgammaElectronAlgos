@@ -1,4 +1,4 @@
-# $Id: pixelMatchElectronL1IsoLargeWindowSequenceForHLT.cff,v 1.2 2007/12/17 19:55:16 ghezzi Exp $
+# $Id: pixelMatchElectronL1IsoLargeWindowSequenceForHLT.cff,v 1.1 2007/12/25 17:14:02 pjanot Exp $
 # create a sequence with all required modules and sources needed to make
 # pixel based electrons
 #
@@ -35,6 +35,8 @@ replace ckfL1IsoLargeWindowTrackCandidates.SeedCleaning = false
 module ctfL1IsoLargeWindowTracks = ctfWithMaterialTracks from "RecoTracker/TrackProducer/data/CTFFinalFitWithMaterial.cfi"
 replace ctfL1IsoLargeWindowTracks.src = "ckfL1IsoLargeWindowTrackCandidates"
 replace ctfL1IsoLargeWindowTracks.TTRHBuilder = "WithoutRefit"
+replace ctfL1IsoLargeWindowTracks.Fitter = "KFFittingSmoother"
+replace ctfL1IsoLargeWindowTracks.Propagator = "PropagatorWithMaterial"
 
 module ctfL1IsoLargeWindowWithMaterialTracks = FastTrackMerger {
 

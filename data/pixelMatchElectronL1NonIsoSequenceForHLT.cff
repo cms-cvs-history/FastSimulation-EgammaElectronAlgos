@@ -1,4 +1,4 @@
-# $Id: pixelMatchElectronL1NonIsoSequenceForHLT.cff,v 1.1 2007/12/20 12:44:27 pjanot Exp $
+# $Id: pixelMatchElectronL1NonIsoSequenceForHLT.cff,v 1.1 2007/12/25 17:14:02 pjanot Exp $
 # create a sequence with all required modules and sources needed to make
 # pixel based electrons
 #
@@ -38,6 +38,8 @@ replace ckfL1NonIsoTrackCandidates.MaxNumberOfCrossedLayers = 999
 module ctfL1NonIsoWithMaterialTracks = ctfWithMaterialTracks from "RecoTracker/TrackProducer/data/CTFFinalFitWithMaterial.cfi"
 replace ctfL1NonIsoWithMaterialTracks.src = "ckfL1NonIsoTrackCandidates"
 replace ctfL1NonIsoWithMaterialTracks.TTRHBuilder = "WithoutRefit"
+replace ctfL1NonIsoWithMaterialTracks.Fitter = "KFFittingSmoother"
+replace ctfL1NonIsoWithMaterialTracks.Propagator = "PropagatorWithMaterial"
 
 sequence pixelMatchElectronL1NonIsoSequenceForHLT = {
     l1NonIsoElectronPixelSeeds
