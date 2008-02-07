@@ -1,4 +1,4 @@
-# $Id: pixelMatchElectronL1NonIsoLargeWindowSequenceForHLT.cff,v 1.2 2008/01/02 17:37:51 pjanot Exp $
+# $Id: pixelMatchElectronL1NonIsoLargeWindowSequenceForHLT.cff,v 1.3 2008/01/22 14:15:23 pjanot Exp $
 # create a sequence with all required modules and sources needed to make
 # pixel based electrons
 #
@@ -9,18 +9,13 @@
 # modules to make seeds, tracks and electrons
 include "RecoEgamma/EgammaHLTProducers/data/egammaHLTChi2MeasurementEstimatorESProducer.cff"
 
+
 # Cluster-seeded pixel pairs
 module l1NonIsoLargeWindowElectronPixelSeeds = electronGSPixelSeeds from "FastSimulation/EgammaElectronAlgos/data/electronGSPixelSeeds.cfi"
-replace l1NonIsoLargeWindowElectronPixelSeeds.SeedConfiguration.ePhiMin1=-0.035
-replace l1NonIsoLargeWindowElectronPixelSeeds.SeedConfiguration.ePhiMax1=0.020
-replace l1NonIsoLargeWindowElectronPixelSeeds.SeedConfiguration.pPhiMin1=-0.020
-replace l1NonIsoLargeWindowElectronPixelSeeds.SeedConfiguration.pPhiMax1=0.035
-replace l1NonIsoLargeWindowElectronPixelSeeds.SeedConfiguration.pPhiMin2=-0.002
-replace l1NonIsoLargeWindowElectronPixelSeeds.SeedConfiguration.pPhiMax2=0.002
-replace l1NonIsoLargeWindowElectronPixelSeeds.SeedConfiguration.ZMin1=-15.0
-replace l1NonIsoLargeWindowElectronPixelSeeds.SeedConfiguration.ZMax1=15.0
-replace l1NonIsoLargeWindowElectronPixelSeeds.SeedConfiguration.ZMin2=-0.1
-replace l1NonIsoLargeWindowElectronPixelSeeds.SeedConfiguration.ZMax2=0.1
+include "RecoEgamma/EgammaHLTProducers/data/pixelSeedConfigurationsForHLT.cfi"
+replace l1NonIsoLargeWindowElectronPixelSeeds.SeedConfiguration = { 
+    using l1NonIsoLargeWindowElectronPixelSeedConfiguration
+}
 
 replace l1NonIsoLargeWindowElectronPixelSeeds.superClusterBarrelProducer = "correctedHybridSuperClustersL1NonIsolated"
 replace l1NonIsoLargeWindowElectronPixelSeeds.superClusterEndcapProducer = "correctedEndcapSuperClustersWithPreshowerL1NonIsolated"

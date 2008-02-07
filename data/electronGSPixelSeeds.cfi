@@ -1,25 +1,13 @@
 #
 # module to produce pixel seeds for electrons from super clusters
-# $Id: electronGSPixelSeeds.cfi,v 1.1 2007/06/28 13:38:32 pjanot Exp $
+# $Id: electronGSPixelSeeds.cfi,v 1.2 2007/12/25 17:15:30 pjanot Exp $
 # Author:  Ursula Berthon, Claude Charlot
 #
+include "RecoEgamma/EgammaElectronProducers/data/pixelSeedConfiguration.cfi"
 module electronGSPixelSeeds= ElectronGSPixelSeedProducer {
 
     PSet SeedConfiguration = { 
-
-	double ePhiMin1 = -0.125
-	double ePhiMax1 =  0.075
-	double pPhiMin1 = -0.075
-	double pPhiMax1 =  0.125
-	double pPhiMin2 = -0.005
-	double pPhiMax2 =  0.005
-	double ZMin1    = -15.0
-	double ZMax1    =  15.0
-	double ZMin2    = -0.07
-	double ZMax2    =  0.07
-	bool dynamicPhiRoad = false
-	double SCEtCut = 5.
-
+	using electronPixelSeedConfiguration
     }
 
     string superClusterBarrelProducer = "correctedHybridSuperClusters"
