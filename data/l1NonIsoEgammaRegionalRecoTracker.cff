@@ -1,5 +1,5 @@
 # Take all pixel tracks but the potential electrons
-module l1NonIsoEgammaRegionalCTFFinalFitWithMaterial = FastTrackMerger {
+module hltL1NonIsoEgammaRegionalCTFFinalFitWithMaterial = FastTrackMerger {
 
     VInputTag TrackProducers = { 
 	globalPixelGSWithMaterialTracks
@@ -10,9 +10,9 @@ module l1NonIsoEgammaRegionalCTFFinalFitWithMaterial = FastTrackMerger {
 }
 
 # The sequence
-sequence l1NonIsoEgammaRegionalRecoTracker = {
+sequence HLTL1NonIsoEgammaRegionalRecoTrackerSequence = {
     globalPixelGSTracking & 
-    l1NonIsoEgammaRegionalCTFFinalFitWithMaterial
+    hltL1NonIsoEgammaRegionalCTFFinalFitWithMaterial
 }
 
 

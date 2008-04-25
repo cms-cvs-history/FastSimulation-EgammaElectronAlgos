@@ -1,5 +1,5 @@
 # Take all pixel tracks but the potential electrons
-module l1IsoLargeWindowElectronsRegionalCTFFinalFitWithMaterial = FastTrackMerger {
+module hltL1IsoLargeWindowElectronsRegionalCTFFinalFitWithMaterial = FastTrackMerger {
 
     VInputTag TrackProducers = { 
 	globalPixelGSWithMaterialTracks
@@ -14,7 +14,7 @@ module l1IsoLargeWindowElectronsRegionalCTFFinalFitWithMaterial = FastTrackMerge
 }
 
 # The sequence
-sequence l1IsoLargeWindowElectronsRegionalRecoTracker = {
+sequence HLTL1IsoLargeWindowElectronsRegionalRecoTrackerSequence = {
     globalPixelGSTracking & 
-    l1IsoLargeWindowElectronsRegionalCTFFinalFitWithMaterial
+    hltL1IsoLargeWindowElectronsRegionalCTFFinalFitWithMaterial
 }
