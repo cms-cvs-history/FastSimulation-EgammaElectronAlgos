@@ -1,4 +1,4 @@
-# $Id: pixelMatchElectronL1IsoSequenceForHLT.cff,v 1.5 2008/02/28 14:41:07 pjanot Exp $
+# $Id: pixelMatchElectronL1IsoSequenceForHLT.cff,v 1.6 2008/03/13 14:55:57 pjanot Exp $
 # create a sequence with all required modules and sources needed to make
 # pixel based electrons
 #
@@ -16,8 +16,8 @@ replace l1IsoElectronPixelSeeds.SeedConfiguration = {
     using l1IsoElectronPixelSeedConfiguration
 }
 
-replace l1IsoElectronPixelSeeds.superClusterBarrel = correctedHybridSuperClustersL1Isolated
-replace l1IsoElectronPixelSeeds.superClusterEndcap = correctedEndcapSuperClustersWithPreshowerL1Isolated
+replace l1IsoElectronPixelSeeds.barrelSuperClusters = correctedHybridSuperClustersL1Isolated
+replace l1IsoElectronPixelSeeds.endcapSuperClusters = correctedEndcapSuperClustersWithPreshowerL1Isolated
 
 # CKFTrackCandidateMaker
 module ckfL1IsoTrackCandidates = trackCandidateProducer from "FastSimulation/Tracking/data/TrackCandidateProducer.cfi"
