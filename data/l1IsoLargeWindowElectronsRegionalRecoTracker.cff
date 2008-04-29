@@ -2,7 +2,7 @@
 module l1IsoLargeWindowElectronsRegionalCTFFinalFitWithMaterial = FastTrackMerger {
 
     VInputTag TrackProducers = { 
-	globalPixelGSWithMaterialTracks
+	globalPixelWithMaterialTracks
     }
 
 #    untracked VInputTag RemoveTrackProducers = { 
@@ -15,6 +15,6 @@ module l1IsoLargeWindowElectronsRegionalCTFFinalFitWithMaterial = FastTrackMerge
 
 # The sequence
 sequence l1IsoLargeWindowElectronsRegionalRecoTracker = {
-    globalPixelGSTracking & 
+    globalPixelTracking & 
     l1IsoLargeWindowElectronsRegionalCTFFinalFitWithMaterial
 }

@@ -2,7 +2,7 @@
 module l1NonIsoEgammaRegionalCTFFinalFitWithMaterial = FastTrackMerger {
 
     VInputTag TrackProducers = { 
-	globalPixelGSWithMaterialTracks
+	globalPixelWithMaterialTracks
     }
 
     untracked bool SaveTracksOnly = true
@@ -11,7 +11,7 @@ module l1NonIsoEgammaRegionalCTFFinalFitWithMaterial = FastTrackMerger {
 
 # The sequence
 sequence l1NonIsoEgammaRegionalRecoTracker = {
-    globalPixelGSTracking & 
+    globalPixelTracking & 
     l1NonIsoEgammaRegionalCTFFinalFitWithMaterial
 }
 
