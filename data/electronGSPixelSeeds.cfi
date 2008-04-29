@@ -1,6 +1,6 @@
 #
 # module to produce pixel seeds for electrons from super clusters
-# $Id: electronGSPixelSeeds.cfi,v 1.7 2008/04/28 17:16:29 pjanot Exp $
+# $Id: electronGSPixelSeeds.cfi,v 1.8 2008/04/28 17:24:01 pjanot Exp $
 # Author:  Ursula Berthon, Claude Charlot
 #
 include "RecoEgamma/EgammaElectronProducers/data/pixelSeedConfiguration.cfi"
@@ -22,9 +22,6 @@ module electronGSPixelSeeds= ElectronGSPixelSeedProducer {
     double maxHOverE = 0.2
     double SCEtCut = 5.
  
-    # External seeding algorithm?
-    string SeedAlgo = ""
-
     # A cut on the sim track transverse momentum (specific to fastSim)
     double pTMin = 3.
 }
