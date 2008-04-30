@@ -1,4 +1,4 @@
-# $Id: pixelMatchElectronL1IsoSequenceForHLT.cff,v 1.6 2008/03/13 14:55:57 pjanot Exp $
+#
 # create a sequence with all required modules and sources needed to make
 # pixel based electrons
 #
@@ -7,35 +7,55 @@
 #
 
 # modules to make seeds, tracks and electrons
-include "RecoEgamma/EgammaHLTProducers/data/egammaHLTChi2MeasurementEstimatorESProducer.cff"
+# include "RecoEgamma/EgammaHLTProducers/data/egammaHLTChi2MeasurementEstimatorESProducer.cff"
 
 # Cluster-seeded pixel pairs
-module l1IsoElectronPixelSeeds = electronGSPixelSeeds from "FastSimulation/EgammaElectronAlgos/data/electronGSPixelSeeds.cfi"
-include "RecoEgamma/EgammaHLTProducers/data/pixelSeedConfigurationsForHLT.cfi"
-replace l1IsoElectronPixelSeeds.SeedConfiguration = { 
-    using l1IsoElectronPixelSeedConfiguration
+module hltL1IsoElectronPixelSeeds = electronGSPixelSeeds from "FastSimulation/EgammaElectronAlgos/data/electronGSPixelSeeds.cfi"
+# include "RecoEgamma/EgammaHLTProducers/data/pixelSeedConfigurationsForHLT.cfi"
+replace hltL1IsoElectronPixelSeeds.SeedConfiguration = { 
+    # using l1IsoElectronPixelSeedConfiguration
+    using block_hltL1IsoElectronPixelSeeds
 }
+replace hltL1IsoElectronPixelSeeds.barrelSuperClusters = hltCorrectedHybridSuperClustersL1Isolated
+replace hltL1IsoElectronPixelSeeds.endcapSuperClusters= hltCorrectedEndcapSuperClustersWithPreshowerL1Isolated
 
-replace l1IsoElectronPixelSeeds.barrelSuperClusters = correctedHybridSuperClustersL1Isolated
-replace l1IsoElectronPixelSeeds.endcapSuperClusters = correctedEndcapSuperClustersWithPreshowerL1Isolated
+module hltL1IsoStartUpElectronPixelSeeds = electronGSPixelSeeds from "FastSimulation/EgammaElectronAlgos/data/electronGSPixelSeeds.cfi"
+replace hltL1IsoStartUpElectronPixelSeeds.SeedConfiguration = { 
+    # using l1IsoElectronPixelSeedConfiguration
+    using block_hltL1IsoStartUpElectronPixelSeeds
+}
+replace hltL1IsoStartUpElectronPixelSeeds.barrelSuperClusters = hltCorrectedHybridSuperClustersL1Isolated
+replace hltL1IsoStartUpElectronPixelSeeds.endcapSuperClusters = hltCorrectedEndcapSuperClustersWithPreshowerL1Isolated
 
 # CKFTrackCandidateMaker
-module ckfL1IsoTrackCandidates = trackCandidateProducer from "FastSimulation/Tracking/data/TrackCandidateProducer.cfi"
-replace ckfL1IsoTrackCandidates.SeedProducer = l1IsoElectronPixelSeeds:
-replace ckfL1IsoTrackCandidates.TrackProducer = None:None
-replace ckfL1IsoTrackCandidates.MaxNumberOfCrossedLayers = 999
-replace ckfL1IsoTrackCandidates.SeedCleaning = true
+module hltCkfL1IsoTrackCandidates = trackCandidateProducer from "FastSimulation/Tracking/data/TrackCandidateProducer.cfi"
+replace hltCkfL1IsoTrackCandidates.SeedProducer = hltL1IsoElectronPixelSeeds:
+replace hltCkfL1IsoTrackCandidates.TrackProducer = None:None
+replace hltCkfL1IsoTrackCandidates.MaxNumberOfCrossedLayers = 999
+replace hltCkfL1IsoTrackCandidates.SeedCleaning = true
+
+module hltCkfL1IsoStartUpTrackCandidates = trackCandidateProducer from "FastSimulation/Tracking/data/TrackCandidateProducer.cfi"
+replace hltCkfL1IsoStartUpTrackCandidates.SeedProducer = hltL1IsoStartUpElectronPixelSeeds:
+replace hltCkfL1IsoStartUpTrackCandidates.TrackProducer = None:None
+replace hltCkfL1IsoStartUpTrackCandidates.MaxNumberOfCrossedLayers = 999
+replace hltCkfL1IsoStartUpTrackCandidates.SeedCleaning = true
 
 # CTF track fit with material
-module ctfL1IsoWithMaterialTracks = ctfWithMaterialTracks from "RecoTracker/TrackProducer/data/CTFFinalFitWithMaterial.cfi"
-replace ctfL1IsoWithMaterialTracks.src = ckfL1IsoTrackCandidates
-replace ctfL1IsoWithMaterialTracks.TTRHBuilder = "WithoutRefit"
-replace ctfL1IsoWithMaterialTracks.Fitter = "KFFittingSmoother"
-replace ctfL1IsoWithMaterialTracks.Propagator = "PropagatorWithMaterial"
+module hltCtfL1IsoWithMaterialTracks = ctfWithMaterialTracks from "RecoTracker/TrackProducer/data/CTFFinalFitWithMaterial.cfi"
+replace hltCtfL1IsoWithMaterialTracks.src = hltCkfL1IsoTrackCandidates
+replace hltCtfL1IsoWithMaterialTracks.TTRHBuilder = "WithoutRefit"
+replace hltCtfL1IsoWithMaterialTracks.Fitter = "KFFittingSmoother"
+replace hltCtfL1IsoWithMaterialTracks.Propagator = "PropagatorWithMaterial"
+
+module hltCtfL1IsoStartUpWithMaterialTracks = ctfWithMaterialTracks from "RecoTracker/TrackProducer/data/CTFFinalFitWithMaterial.cfi"
+replace hltCtfL1IsoStartUpWithMaterialTracks.src = hltCkfL1IsoStartUpTrackCandidates
+replace hltCtfL1IsoStartUpWithMaterialTracks.TTRHBuilder = "WithoutRefit"
+replace hltCtfL1IsoStartUpWithMaterialTracks.Fitter = "KFFittingSmoother"
+replace hltCtfL1IsoStartUpWithMaterialTracks.Propagator = "PropagatorWithMaterial"
 
 # Electron collection
-include "RecoEgamma/EgammaHLTProducers/data/pixelMatchElectronsL1IsoForHLT.cff"
+# include "RecoEgamma/EgammaHLTProducers/data/pixelMatchElectronsL1IsoForHLT.cff"
 
-sequence pixelMatchElectronL1IsoSequenceForHLT = {
-    l1IsoElectronPixelSeeds
-}
+# sequence HLTPixelMatchElectronL1IsoSequence = {
+#     hltL1IsoElectronPixelSeeds
+# }

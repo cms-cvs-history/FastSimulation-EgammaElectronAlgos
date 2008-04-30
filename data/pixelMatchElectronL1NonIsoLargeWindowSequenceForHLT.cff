@@ -1,4 +1,4 @@
-# $Id: pixelMatchElectronL1NonIsoLargeWindowSequenceForHLT.cff,v 1.6 2008/03/13 14:55:57 pjanot Exp $
+#
 # create a sequence with all required modules and sources needed to make
 # pixel based electrons
 #
@@ -7,37 +7,36 @@
 #
 
 # modules to make seeds, tracks and electrons
-include "RecoEgamma/EgammaHLTProducers/data/egammaHLTChi2MeasurementEstimatorESProducer.cff"
+# include "RecoEgamma/EgammaHLTProducers/data/egammaHLTChi2MeasurementEstimatorESProducer.cff"
 
 
 # Cluster-seeded pixel pairs
-module l1NonIsoLargeWindowElectronPixelSeeds = electronGSPixelSeeds from "FastSimulation/EgammaElectronAlgos/data/electronGSPixelSeeds.cfi"
-include "RecoEgamma/EgammaHLTProducers/data/pixelSeedConfigurationsForHLT.cfi"
-replace l1NonIsoLargeWindowElectronPixelSeeds.SeedConfiguration = { 
-    using l1NonIsoLargeWindowElectronPixelSeedConfiguration
+module hltL1NonIsoLargeWindowElectronPixelSeeds = electronGSPixelSeeds from "FastSimulation/EgammaElectronAlgos/data/electronGSPixelSeeds.cfi"
+replace hltL1NonIsoLargeWindowElectronPixelSeeds.SeedConfiguration = { 
+    using block_hltL1NonIsoLargeWindowElectronPixelSeeds
 }
 
-replace l1NonIsoLargeWindowElectronPixelSeeds.barrelSuperClusters = correctedHybridSuperClustersL1NonIsolated
-replace l1NonIsoLargeWindowElectronPixelSeeds.endcapSuperClusters = correctedEndcapSuperClustersWithPreshowerL1NonIsolated
+replace hltL1NonIsoLargeWindowElectronPixelSeeds.barrelSuperClusters = hltCorrectedHybridSuperClustersL1NonIsolated
+replace hltL1NonIsoLargeWindowElectronPixelSeeds.endcapSuperClusters = hltCorrectedEndcapSuperClustersWithPreshowerL1NonIsolated
 
-module ckfL1NonIsoLargeWindowTrackCandidates = trackCandidateProducer from "FastSimulation/Tracking/data/TrackCandidateProducer.cfi"
-replace ckfL1NonIsoLargeWindowTrackCandidates.SeedProducer = l1NonIsoLargeWindowElectronPixelSeeds:
-replace ckfL1NonIsoLargeWindowTrackCandidates.TrackProducer = ctfL1NonIsoWithMaterialTracks:
-replace ckfL1NonIsoLargeWindowTrackCandidates.MaxNumberOfCrossedLayers = 999
-replace ckfL1NonIsoLargeWindowTrackCandidates.SeedCleaning = true
+module hltCkfL1NonIsoLargeWindowTrackCandidates = trackCandidateProducer from "FastSimulation/Tracking/data/TrackCandidateProducer.cfi"
+replace hltCkfL1NonIsoLargeWindowTrackCandidates.SeedProducer = hltL1NonIsoLargeWindowElectronPixelSeeds:
+replace hltCkfL1NonIsoLargeWindowTrackCandidates.TrackProducer = hltCtfL1NonIsoWithMaterialTracks:
+replace hltCkfL1NonIsoLargeWindowTrackCandidates.MaxNumberOfCrossedLayers = 999
+replace hltCkfL1NonIsoLargeWindowTrackCandidates.SeedCleaning = true
 
 # CTF track fit with material
 module ctfL1NonIsoLargeWindowTracks = ctfWithMaterialTracks from "RecoTracker/TrackProducer/data/CTFFinalFitWithMaterial.cfi"
-replace ctfL1NonIsoLargeWindowTracks.src = ckfL1NonIsoLargeWindowTrackCandidates
+replace ctfL1NonIsoLargeWindowTracks.src = hltCkfL1NonIsoLargeWindowTrackCandidates
 replace ctfL1NonIsoLargeWindowTracks.TTRHBuilder = "WithoutRefit"
 replace ctfL1NonIsoLargeWindowTracks.Fitter = "KFFittingSmoother"
 replace ctfL1NonIsoLargeWindowTracks.Propagator = "PropagatorWithMaterial"
 
-module ctfL1NonIsoLargeWindowWithMaterialTracks = FastTrackMerger {
+module hltCtfL1NonIsoLargeWindowWithMaterialTracks = FastTrackMerger {
 
     VInputTag TrackProducers = { 
 	ctfL1NonIsoLargeWindowTracks,
-	ctfL1NonIsoWithMaterialTracks
+	hltCtfL1NonIsoWithMaterialTracks
     }
 
     untracked bool SaveTracksOnly = true
@@ -45,15 +44,15 @@ module ctfL1NonIsoLargeWindowWithMaterialTracks = FastTrackMerger {
 }
 
 # Electron collection
-include "RecoEgamma/EgammaHLTProducers/data/pixelMatchElectronsL1NonIsoLargeWindowForHLT.cff"
+# include "RecoEgamma/EgammaHLTProducers/data/pixelMatchElectronsL1NonIsoLargeWindowForHLT.cff"
 
-sequence pixelMatchElectronL1NonIsoLargeWindowSequenceForHLT = {
-    l1NonIsoLargeWindowElectronPixelSeeds
-}
+# sequence HLTPixelMatchElectronL1NonIsoLargeWindowSequence = {
+#     hltL1NonIsoLargeWindowElectronPixelSeeds
+# }
 
-sequence pixelMatchElectronL1NonIsoLargeWindowTrackingSequenceForHLT = {
-    ckfL1NonIsoLargeWindowTrackCandidates &
+sequence HLTPixelMatchElectronL1NonIsoLargeWindowTrackingSequence = {
+    hltCkfL1NonIsoLargeWindowTrackCandidates &
     ctfL1NonIsoLargeWindowTracks &
-    ctfL1NonIsoLargeWindowWithMaterialTracks &
-    pixelMatchElectronsL1NonIsoLargeWindowForHLT
+    hltCtfL1NonIsoLargeWindowWithMaterialTracks &
+    hltPixelMatchElectronsL1NonIsoLargeWindow
 }
