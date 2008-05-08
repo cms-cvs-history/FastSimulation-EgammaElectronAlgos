@@ -22,7 +22,7 @@ replace hltL1IsoLargeWindowElectronPixelSeeds.endcapSuperClusters = hltCorrected
 
 module hltCkfL1IsoLargeWindowTrackCandidates = trackCandidateProducer from "FastSimulation/Tracking/data/TrackCandidateProducer.cfi"
 replace hltCkfL1IsoLargeWindowTrackCandidates.SeedProducer = hltL1IsoLargeWindowElectronPixelSeeds:
-replace hltCkfL1IsoLargeWindowTrackCandidates.TrackProducer = hltCtfL1IsoWithMaterialTracks:
+replace hltCkfL1IsoLargeWindowTrackCandidates.TrackProducers = { hltCtfL1IsoWithMaterialTracks: }
 replace hltCkfL1IsoLargeWindowTrackCandidates.MaxNumberOfCrossedLayers = 999
 replace hltCkfL1IsoLargeWindowTrackCandidates.SeedCleaning = true
 

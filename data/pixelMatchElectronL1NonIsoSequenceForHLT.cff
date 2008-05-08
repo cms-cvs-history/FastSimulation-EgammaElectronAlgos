@@ -32,13 +32,13 @@ replace hltL1NonIsoStartUpElectronPixelSeeds.endcapSuperClusters = hltCorrectedE
 # CKFTrackCandidateMaker
 module hltCkfL1NonIsoTrackCandidates = trackCandidateProducer from "FastSimulation/Tracking/data/TrackCandidateProducer.cfi"
 replace hltCkfL1NonIsoTrackCandidates.SeedProducer = hltL1NonIsoElectronPixelSeeds:
-replace hltCkfL1NonIsoTrackCandidates.TrackProducer = None:None
+replace hltCkfL1NonIsoTrackCandidates.TrackProducers = { }
 replace hltCkfL1NonIsoTrackCandidates.MaxNumberOfCrossedLayers = 999
 replace hltCkfL1NonIsoTrackCandidates.SeedCleaning = true
 
 module hltCkfL1NonIsoStartUpTrackCandidates = trackCandidateProducer from "FastSimulation/Tracking/data/TrackCandidateProducer.cfi"
 replace hltCkfL1NonIsoStartUpTrackCandidates.SeedProducer = hltL1NonIsoStartUpElectronPixelSeeds:
-replace hltCkfL1NonIsoStartUpTrackCandidates.TrackProducer = None:None
+replace hltCkfL1NonIsoStartUpTrackCandidates.TrackProducers = { }
 replace hltCkfL1NonIsoStartUpTrackCandidates.MaxNumberOfCrossedLayers = 999
 replace hltCkfL1NonIsoStartUpTrackCandidates.SeedCleaning = true
 
