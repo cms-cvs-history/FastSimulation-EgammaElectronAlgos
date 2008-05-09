@@ -1,4 +1,4 @@
-# $Id: pixelMatchElectronL1IsoLargeWindowSequenceForHLT.cff,v 1.6 2008/03/13 14:55:57 pjanot Exp $
+# $Id: pixelMatchElectronL1IsoLargeWindowSequenceForHLT.cff,v 1.6.2.1 2008/04/25 10:01:34 pjanot Exp $
 # create a sequence with all required modules and sources needed to make
 # pixel based electrons
 #
@@ -22,7 +22,7 @@ replace hltL1IsoLargeWindowElectronPixelSeeds.superClusterEndcap = hltCorrectedE
 
 module hltCkfL1IsoLargeWindowTrackCandidates = trackCandidateProducer from "FastSimulation/Tracking/data/TrackCandidateProducer.cfi"
 replace hltCkfL1IsoLargeWindowTrackCandidates.SeedProducer = hltL1IsoLargeWindowElectronPixelSeeds:
-replace hltCkfL1IsoLargeWindowTrackCandidates.TrackProducer = hltCtfL1IsoWithMaterialTracks:
+replace hltCkfL1IsoLargeWindowTrackCandidates.TrackProducers = { hltCtfL1IsoWithMaterialTracks: }
 replace hltCkfL1IsoLargeWindowTrackCandidates.MaxNumberOfCrossedLayers = 999
 replace hltCkfL1IsoLargeWindowTrackCandidates.SeedCleaning = true
 
