@@ -56,3 +56,4 @@ sequence HLTPixelMatchElectronL1NonIsoLargeWindowTrackingSequence = {
     hltCtfL1NonIsoLargeWindowWithMaterialTracks &
     hltPixelMatchElectronsL1NonIsoLargeWindow
 }
+
