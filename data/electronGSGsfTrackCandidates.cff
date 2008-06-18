@@ -1,7 +1,0 @@
-# GsfTrackCandidateMaker
-module electronGSGsfTrackCandidates = trackCandidateProducer from "FastSimulation/Tracking/data/TrackCandidateProducer.cfi"
-replace electronGSGsfTrackCandidates.SeedProducer = electronGSPixelSeeds:
-replace electronGSGsfTrackCandidates.TrackProducers = { }
-replace electronGSGsfTrackCandidates.SeedCleaning = true
-replace electronGSGsfTrackCandidates.MinNumberOfCrossedLayers = 5
-
