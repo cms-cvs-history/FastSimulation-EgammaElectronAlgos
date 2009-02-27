@@ -14,13 +14,13 @@ import FWCore.ParameterSet.Config as cms
 import FastSimulation.EgammaElectronAlgos.electronGSPixelSeeds_cfi
 from FastSimulation.Configuration.blockHLT_cff import *
 
-hltL1NonIsoElectronPixelSeeds = FastSimulation.EgammaElectronAlgos.electronGSPixelSeeds_cfi.electronGSPixelSeeds.clone()
-hltL1NonIsoElectronPixelSeeds.SeedConfiguration = cms.PSet(
-    # using l1NonIsoElectronPixelSeedConfiguration
-    block_hltL1NonIsoElectronPixelSeeds
-)
-hltL1NonIsoElectronPixelSeeds.barrelSuperClusters = 'hltCorrectedHybridSuperClustersL1NonIsolated'
-hltL1NonIsoElectronPixelSeeds.endcapSuperClusters = 'hltCorrectedEndcapSuperClustersWithPreshowerL1NonIsolated'
+#hltL1NonIsoElectronPixelSeeds = FastSimulation.EgammaElectronAlgos.electronGSPixelSeeds_cfi.electronGSPixelSeeds.clone()
+#hltL1NonIsoElectronPixelSeeds.SeedConfiguration = cms.PSet(
+#    # using l1NonIsoElectronPixelSeedConfiguration
+#    block_hltL1NonIsoElectronPixelSeeds
+#)
+#hltL1NonIsoElectronPixelSeeds.barrelSuperClusters = 'hltCorrectedHybridSuperClustersL1NonIsolated'
+#hltL1NonIsoElectronPixelSeeds.endcapSuperClusters = 'hltCorrectedEndcapSuperClustersWithPreshowerL1NonIsolated'
 
 hltL1NonIsoStartUpElectronPixelSeeds = FastSimulation.EgammaElectronAlgos.electronGSPixelSeeds_cfi.electronGSPixelSeeds.clone()
 hltL1NonIsoStartUpElectronPixelSeeds.SeedConfiguration = cms.PSet(
@@ -61,4 +61,3 @@ hltCtfL1NonIsoStartUpWithMaterialTracks.src = 'hltCkfL1NonIsoStartUpTrackCandida
 hltCtfL1NonIsoStartUpWithMaterialTracks.TTRHBuilder = 'WithoutRefit'
 hltCtfL1NonIsoStartUpWithMaterialTracks.Fitter = 'KFFittingSmootherForElectrons'
 hltCtfL1NonIsoStartUpWithMaterialTracks.Propagator = 'PropagatorWithMaterial'
-
